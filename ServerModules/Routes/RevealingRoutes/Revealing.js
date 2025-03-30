@@ -1,15 +1,16 @@
 const express = require('express'); 
 const router = express.Router();
 const NodeRoutes = require('./RoutesReferences');
-// const CheckToken = require('../../Functions/CheckToken');
+const multer = require('multer');
 
+const upload = multer({ dest: 'uploads/' });
 
-
+// Definição das rotas
 router.post('/AuthLogin', NodeRoutes.AuthLogin);
-router.use('/UserRegister', NodeRoutes.UserRegister);
-router.use('/StoreRegister', NodeRoutes.StoreRegister);
-router.use('/StoresListing', NodeRoutes.StoresListing);
-router.use('/StoreData/:StoreID', NodeRoutes.StoreData);
+router.post('/UserRegister', NodeRoutes.UserRegister);
+router.post('/StoreRegister', NodeRoutes.StoreRegister);
+router.get('/StoresListing', NodeRoutes.StoresListing);
+router.get('/StoreData/:StoreID', NodeRoutes.StoreData);
+router.post('/ProductRegister', upload.single('file'), NodeRoutes.ProductRegister);
 
-
-module.exports = router
+module.exports = router;

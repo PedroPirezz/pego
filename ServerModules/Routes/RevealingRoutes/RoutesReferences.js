@@ -1,8 +1,9 @@
 const UserRegister = require('../RoutesListing/Account/UserRegister')
 const AuthLogin = require('../RoutesListing/Auth/AuthLogin')
 const StoreRegister = require('../RoutesListing/Account/StoreRegister')
-const StoresListing = require('../RoutesListing/GetInfo/StoresListing')
-const StoreData = require('../RoutesListing/GetInfo/StoreData')
+const StoresListing = require('../RoutesListing/Get/StoresListing')
+const StoreData = require('../RoutesListing/Get/StoreData')
+const ProductRegister = require('../RoutesListing/Post/ProductRegister')
 
 
 
@@ -12,7 +13,8 @@ const NodeRoutes = {
     AuthLogin,
     StoreRegister,
     StoresListing,
-    StoreData
+    StoreData,
+    ProductRegister
 };
 
 module.exports = NodeRoutes;
