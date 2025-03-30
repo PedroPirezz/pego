@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const NodeRoutes = require('./RoutesReferences');
 const multer = require('multer');
+const os = require('os');
 
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ dest: os.tmpdir() }); 
 
 // Definição das rotas
 router.post('/AuthLogin', NodeRoutes.AuthLogin);
