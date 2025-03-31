@@ -138,3 +138,38 @@ Exemplo De Retorno:
   "updatedAt": "2025-03-29T19:51:59.236Z"
 }
 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+**CADASTRAR UM PRODUTO**
+
+
+Observações iniciais: Essa rota espera um arquivo 
+Obs: Enviar como multpartform, e deve enviar no header o token e o id de quem está logado
+
+
+Inputs Necéssarias:
+StoreID
+ProductName
+ProductPrice
+file
+
+
+
+
+Exemplo de retorno
+Se as inputs estiverem vazias: 
+{
+	"error": "Nenhum arquivo enviado"
+}
+
+Se estiver tudo correto 
+{
+	"success": true,
+	"fileId": "1b7NcTUZB4E_wYetaagCokcsq2bqWDY15"
+}
+
+Se o token não for fornecido 
+{
+	"error": "Acesso negado. Token não fornecido."
+}

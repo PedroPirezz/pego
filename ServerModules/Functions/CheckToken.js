@@ -1,20 +1,30 @@
-const DB = require('../DatabaseModels/DatabaseModels');
+const DB = require('../Database/Variable/DBVar');
 
-function validateToken(userId, token, req, res, next) {
-
-  let UserId = req.params.userId;
-  let InputToken = req.params.token;
-
-  DB.Cadastros.findOne({ where: { id: UserId} }).then(Register => {
-    if (Register.Token === InputToken) {
-      next();
-    } else {
-      res.send('Invalid Token');
+async function CheckToken(req, res, next) {
+    const authHeader = req.header('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Acesso negado. Token não fornecido.' });
     }
-  }).catch(error => {
-    console.error('Error validating token:', error);
-    res.status(500).send('Internal Server Error');
-  });
+
+    const token = authHeader.split(' ')[1];
+    const userId = req.header('User-Id'); // O ID do usuário deve ser enviado no cabeçalho da requisição
+
+    if (!userId) {
+        return res.status(401).json({ error: 'Acesso negado. ID do usuário não fornecido.' });
+    }
+
+    try {
+        let user = await DB.Users.findOne({ where: { id: userId } });
+        
+        if (user && user.Token === token) {
+            req.user = user; // Adiciona o usuário ao request
+            next();
+        } else {
+            return res.status(401).json({ error: 'Token inválido ou expirado.' });
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Erro no servidor.' });
+    }
 }
 
-module.exports = validateToken;
+module.exports = CheckToken;

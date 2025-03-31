@@ -29,6 +29,7 @@ const ProductRegister = async (req, res) => {
     try {
         const fileId = await uploadFileToDrive(req.file.path, req.file.originalname);
         const { StoreID, ProductName, ProductPrice } = req.body;
+        const Avaible = 1;
         
         let ImageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
         const viewid = await getViewIdFromImageIdGoogleDrive(fileId);
@@ -45,6 +46,7 @@ const ProductRegister = async (req, res) => {
                 StoreID: StoreID,
                 Price: ProductPrice,
                 ImageUrl: ImageUrl,
+                Available: Avaible,
             });
         }
         
