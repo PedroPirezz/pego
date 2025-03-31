@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const DB = require("../../../Database/Variable/DBVar");
-const express = require("express");
+const express = require("express"); 
 const router = express.Router();
 
 
@@ -13,6 +13,8 @@ let Name = req.body.Name;
 let CPF_CNPJ = req.body.Cpf_Cnpj;
 let AccountType = "Personal"; 
 let NumberPhone = req.body.NumberPhone;
+
+console.log(Email, Password, Name, CPF_CNPJ, AccountType, NumberPhone);
 
 //PASS CRIPITOGRAPHY
 const salt = bcrypt.genSaltSync(10); 

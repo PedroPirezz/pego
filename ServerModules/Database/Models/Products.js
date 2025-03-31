@@ -17,7 +17,11 @@ const Products = connection.define('products', {
     ImageUrl: {
         type: Sequelize.STRING,
         allownull: false
-    }
+    },
+    Available: {
+        type: Sequelize.BOOLEAN,
+        allownull: false
+    },
 })
 
 Products.sync({ force: false }).then(() => {

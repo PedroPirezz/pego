@@ -2,13 +2,17 @@ const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
 const { google } = require('googleapis');
-const IdfolderGoogleApi = '1MslqHebojNJEQjZ9h8cvMvqALDL8USAx';
+require('dotenv').config();  // Carrega variáveis do .env
 
+const IdfolderGoogleApi = '1MslqHebojNJEQjZ9h8cvMvqALDL8USAx';
 
 async function uploadFileToDrive(filePath, fileName) {
   try {
+    // Obtém as credenciais do Google a partir do ambiente
+    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+
     const auth = new google.auth.GoogleAuth({
-      keyFile: './PegoCredentials.json',
+      credentials,
       scopes: ['https://www.googleapis.com/auth/drive'],
     });
 
@@ -23,7 +27,7 @@ async function uploadFileToDrive(filePath, fileName) {
     };
 
     const media = {
-      mimeType: 'image/png',
+      mimeType: 'image/png',  // Ou ajuste conforme o tipo de arquivo
       body: fs.createReadStream(filePath),
     };
 
@@ -41,5 +45,5 @@ async function uploadFileToDrive(filePath, fileName) {
 }
 
 module.exports = {
-  uploadFileToDrive
+  uploadFileToDrive,
 };
