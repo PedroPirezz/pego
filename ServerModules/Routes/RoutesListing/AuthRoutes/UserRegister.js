@@ -14,7 +14,6 @@ let CPF_CNPJ = req.body.Cpf_Cnpj;
 let AccountType = "Personal"; 
 let NumberPhone = req.body.NumberPhone;
 
-console.log(Email, Password, Name, CPF_CNPJ, AccountType, NumberPhone);
 
 //PASS CRIPITOGRAPHY
 const salt = bcrypt.genSaltSync(10); 
@@ -32,7 +31,7 @@ else
 //CHECK IF USER ALREADY EXISTS
 DB.Users.findOne({ where: { Email: Email } }).then(user => {
     if (user) { 
-        res.send("User Already Exists");
+        res.status(409).send({ error: "User Already Exists" });
     } else {
         
         //CREATE USER

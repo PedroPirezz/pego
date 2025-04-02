@@ -143,6 +143,8 @@ Exemplo De Retorno:
 
 **CADASTRAR UM PRODUTO**
 
+Rota = https://apipego.vercel.app/ProductRegister
+Método = Post
 
 Observações iniciais: Essa rota espera um arquivo 
 Obs: Enviar como multpartform, e deve enviar no header o token e o id de quem está logado

@@ -11,11 +11,15 @@ const OrderItem = connection.define('orderitem', {
         type: Sequelize.INTEGER,
         allownull: false
     },
+    ProductName : {
+        type: Sequelize.STRING,
+        allownull: false
+    },
     Quantity: {
         type: Sequelize.INTEGER,
         allownull: false
     },
-    UnitPrice: {
+    UnitPrice: { 
         type: Sequelize.DOUBLE,
         allownull: false
     },

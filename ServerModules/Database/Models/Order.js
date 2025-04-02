@@ -16,9 +16,13 @@ const Orders = connection.define('orders', {
     },
     Status: {
         type: Sequelize.STRING,
-        allownull: false
+        allownull: false 
     },
     PaymentMethod: {
+        type: Sequelize.STRING,
+        allownull: false
+    },
+    PaymentLink: {
         type: Sequelize.STRING,
         allownull: false
     },
