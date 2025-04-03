@@ -19,11 +19,9 @@ async function OwnerCheck(req, res, next) {
     else{
 
     try {
-        console.log(store.id+Header_storeId)
-        console.log(store.id + "-------------------------------------------------------------------" + Header_storeId );
+    
         
         if ( store.StoreIdOwner == Header_userId) {
-            console.log("Por aqui está tudo certo") 
             
             next();
         } else {
