@@ -5,6 +5,7 @@ const multer = require('multer');
 const os = require('os');
 const CheckToken = require('../../Functions/CheckToken');
 const OwnerCheck = require('../../Functions/StoreOwnerCheck');
+const CheckOrderOwner = require('../../Functions/CheckOrderOwner');
 
 const upload = multer({ dest: os.tmpdir() }); 
 
@@ -20,5 +21,6 @@ router.get('/Store/:StoreID/Product/:ProductID', Pego_Routes.StoreProductInfo);
  router.post('/NewOrder', CheckToken, Pego_Routes.NewOrder);
 router.get('/CheckPayment', Pego_Routes.CheckPayment);
 router.post('/AlterProductDisponibility', CheckToken, OwnerCheck, Pego_Routes.AlterProductDisponibility); 
+router.get('/OrderInfo', CheckToken, CheckOrderOwner, Pego_Routes.OrderInfo);
 
 module.exports = router;

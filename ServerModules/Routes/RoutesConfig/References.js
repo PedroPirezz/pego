@@ -9,6 +9,7 @@ const StoreProductInfo = require('../RoutesListing/ProductRoutes/ProductInfo')
 const NewOrder = require('../RoutesListing/OrderRoutes/NewOrder')
 const CheckPayment = require('../RoutesListing/OrderRoutes/CheckPayment')
 const AlterProductDisponibility = require('../RoutesListing/ProductRoutes/AlterProductDisponibility')
+const OrderInfo = require('../RoutesListing/OrderRoutes/OrderInfo')
 
 
 const NodeRoutes = {
@@ -23,7 +24,8 @@ const NodeRoutes = {
     StoreProductInfo,
     NewOrder,
     CheckPayment,
-    AlterProductDisponibility
+    AlterProductDisponibility,
+    OrderInfo
 };
 
 module.exports = NodeRoutes;
