@@ -18,12 +18,20 @@ const Orders = connection.define('orders', {
         type: Sequelize.STRING,
         allownull: false 
     },
-    PaymentMethod: {
+    PaymentId: {
         type: Sequelize.STRING,
         allownull: false
     },
-    PaymentLink: {
+    PaymentMethod: {
+        type: Sequelize.STRING, 
+        allownull: false
+    },
+    PixKey: {
         type: Sequelize.STRING,
+        allownull: false
+    },
+    PixQrCode: {
+        type: Sequelize.DataTypes.BLOB('long'),
         allownull: false
     },
 })

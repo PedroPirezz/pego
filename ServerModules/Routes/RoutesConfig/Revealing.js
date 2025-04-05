@@ -21,6 +21,7 @@ router.get('/Store/:StoreID/Product/:ProductID', Pego_Routes.StoreProductInfo);
  router.post('/NewOrder', CheckToken, Pego_Routes.NewOrder);
 router.get('/CheckPayment', Pego_Routes.CheckPayment);
 router.post('/AlterProductDisponibility', CheckToken, OwnerCheck, Pego_Routes.AlterProductDisponibility); 
-router.get('/OrderInfo', CheckToken, CheckOrderOwner, Pego_Routes.OrderInfo);
+router.get('/OrderInfo', CheckToken, CheckOrderOwner, Pego_Routes.OrderInfo); 
+router.post('/RedeemOrder', CheckToken, OwnerCheck, Pego_Routes.RedeemOrder);
 
 module.exports = router;

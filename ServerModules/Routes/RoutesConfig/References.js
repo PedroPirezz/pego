@@ -10,6 +10,7 @@ const NewOrder = require('../RoutesListing/OrderRoutes/NewOrder')
 const CheckPayment = require('../RoutesListing/OrderRoutes/CheckPayment')
 const AlterProductDisponibility = require('../RoutesListing/ProductRoutes/AlterProductDisponibility')
 const OrderInfo = require('../RoutesListing/OrderRoutes/OrderInfo')
+const RedeemOrder = require('../RoutesListing/OrderRoutes/RedeemOrder')
 
 
 const NodeRoutes = {
@@ -25,7 +26,8 @@ const NodeRoutes = {
     NewOrder,
     CheckPayment,
     AlterProductDisponibility,
-    OrderInfo
+    OrderInfo,
+    RedeemOrder
 };
 
 module.exports = NodeRoutes;
