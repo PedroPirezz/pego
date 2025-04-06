@@ -1,5 +1,5 @@
-const DB = require("../../../Database/Variable/DBVar");
 const express = require("express");
+const DB = require("../../../Database/Variable/DBVar");
 const router = express.Router();
 
 module.exports = async (req, res) => {
@@ -10,12 +10,12 @@ try {
         return res.status(400).json({ error: "Order-Id header is required" });
     }
     else{
-      let Order = await DB.Order.findOne({ where: { id: OrderId } });  
-      console.log(Order);
+      let Order = await DB.Order.findOne({ attributes: ['Status']}, { where: { id: OrderId } });  
+    
       if (!Order) {
         return res.status(404).json({ error: "Order not found" });
       }
-      if(Order.Status == "peid")
+      if(Order.Status == "PAID")
       {
         await DB.Order.update({ Status: "redeemed" }, { where: { id: OrderId } });
       }

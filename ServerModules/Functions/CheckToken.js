@@ -14,7 +14,7 @@ async function CheckToken(req, res, next) {
     }
 
     try {
-        let user = await DB.Users.findOne({ where: { id: userId } });
+        let user = await DB.Users.findOne({ attributes: ['Token'] }, { where: { id: userId } });
         
         if (user && user.Token === token) {
             req.user = user; // Adiciona o usuário ao request

@@ -13,7 +13,7 @@ async function CheckOrderOwner(req, res, next) {
     const Header_userId = req.header('User-Id'); 
     const Header_orderId = parseInt(req.header('Order-Id')); 
 
-    let order = await DB.Order.findOne({ where: { id: Header_orderId } });
+    let order = await DB.Order.findOne({ attributes: ['UserId']}, { where: { id: Header_orderId } });
 
     if (!Header_userId || !Header_orderId) {
         return res.status(401).json({ error: 'Acesso negado. ID e ID da loja do usuário não fornecido.' });

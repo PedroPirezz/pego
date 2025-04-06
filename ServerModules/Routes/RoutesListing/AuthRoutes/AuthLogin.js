@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
             return res.send("Please fill in all fields");
         }
 
-        const User = await DB.Users.findOne({ where: { Email: InputEmail } });
+        const User = await DB.Users.findOne({ attributes: ['id', 'Token', 'Password'] }, { where: { Email: InputEmail } });
 
         if (!User) {
             return res.send("Login Failed, User Not Found");

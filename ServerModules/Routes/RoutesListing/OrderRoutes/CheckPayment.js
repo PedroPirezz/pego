@@ -1,5 +1,5 @@
-const express = require("express");
-const axios = require("axios");
+const express = import("express");
+const axios = import("axios");
 const router = express.Router();
 
 router.get('/CheckPayment', async (req, res) => {
@@ -16,7 +16,7 @@ router.get('/CheckPayment', async (req, res) => {
         }
       }
     );
-    console.log(response.data);
+
     res.json(response.data); // Retorna a resposta da API de verificação de pagamento
   } catch (error) {
     console.error('Erro ao verificar status do pagamento:', error);
