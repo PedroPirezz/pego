@@ -7,7 +7,7 @@ const ProductRegister = require('../RoutesListing/ProductRoutes/ProductRegister'
 const StoreProducts = require('../RoutesListing/ProductRoutes/AllStoreProducts')
 const StoreProductInfo = require('../RoutesListing/ProductRoutes/ProductInfo')
 const NewOrder = require('../RoutesListing/OrderRoutes/NewOrder')
-const CheckPayment = require('../RoutesListing/OrderRoutes/CheckPayment')
+
 const AlterProductDisponibility = require('../RoutesListing/ProductRoutes/AlterProductDisponibility')
 const OrderInfo = require('../RoutesListing/OrderRoutes/OrderInfo')
 const RedeemOrder = require('../RoutesListing/OrderRoutes/RedeemOrder')
@@ -24,7 +24,6 @@ const NodeRoutes = {
     StoreProducts,
     StoreProductInfo,
     NewOrder,
-    CheckPayment,
     AlterProductDisponibility,
     OrderInfo,
     RedeemOrder
