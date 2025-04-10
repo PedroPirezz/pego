@@ -5,21 +5,24 @@ module.exports = async (req, res) => {
     try {
         let InputEmail = req.body.Email; 
         let InputPassword = req.body.Password;
-        const salt = bcrypt.genSaltSync(10); 
 
-        if (!InputEmail || !InputPassword) { 
-            return res.send("Please fill in all fields");
+        if (!InputEmail || !InputPassword) {
+            return res.status(400).send("Please fill in all fields");
         }
 
-        const User = await DB.Users.findOne({ attributes: ['id', 'Token', 'Password'] }, { where: { Email: InputEmail } });
+        const User = await DB.Users.findOne({
+            attributes: ['id', 'Token', 'Password'],
+            where: { Email: InputEmail }
+        });
 
         if (!User) {
-            return res.send("Login Failed, User Not Found");
+            return res.status(404).send("Login Failed, User Not Found");
         }
 
-        let CheckPass = bcrypt.compareSync(InputPassword, User.Password);
+        let CheckPass = await bcrypt.compare(InputPassword, User.Password);
 
         if (CheckPass) {
+            const salt = bcrypt.genSaltSync(10); 
             let NewToken = bcrypt.hashSync(InputEmail, salt);
 
             await User.update({ Token: NewToken });
@@ -29,9 +32,9 @@ module.exports = async (req, res) => {
                 Token: NewToken
             };
 
-            return res.send(ReturnData);
+            return res.status(200).send(ReturnData);
         } else {
-            return res.send("Login Failed, Incorrect Data");
+            return res.status(401).send("Login Failed, Incorrect Password");
         }
     } catch (error) {
         console.error("Error in login:", error);
