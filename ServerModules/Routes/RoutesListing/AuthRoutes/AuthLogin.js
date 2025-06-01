@@ -25,11 +25,13 @@ module.exports = async (req, res) => {
             const salt = bcrypt.genSaltSync(10); 
             let NewToken = bcrypt.hashSync(InputEmail, salt);
 
-            await User.update({ Token: NewToken });
+            DB.Users.update({ Token: NewToken }, { where: { id: User.id } });
+            let HaveStore = await DB.Stores.findOne({where: {StoreIdOwner: User.id}});
 
             let ReturnData = {
                 Id: User.id,
-                Token: NewToken
+                Token: NewToken,
+                HaveStore: HaveStore
             };
 
             return res.status(200).send(ReturnData);

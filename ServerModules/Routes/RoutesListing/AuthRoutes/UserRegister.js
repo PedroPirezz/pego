@@ -29,7 +29,7 @@ else
 {
 
 //CHECK IF USER ALREADY EXISTS
-DB.Users.findOne({ attributes: ['Email'] }, { where: { Email: Email } }).then(user => {
+DB.Users.findOne({ where: { Email: Email } }).then(user => {
     if (user) { 
         res.status(409).send({ error: "User Already Exists" });
     } else {

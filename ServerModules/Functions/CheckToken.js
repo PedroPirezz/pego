@@ -14,10 +14,16 @@ async function CheckToken(req, res, next) {
     }
 
     try {
-        let user = await DB.Users.findOne({ attributes: ['Token'] }, { where: { id: userId } });
-        
+        let user = await DB.Users.findOne({
+            raw: true,
+            attributes: ['Token'],
+            where: { id: userId }
+        });
+
+        console.log(user.Token + "--------------------------------------------------" +  token);
+
         if (user && user.Token === token) {
-            req.user = user; // Adiciona o usuário ao request
+
             next();
         } else {
             return res.status(401).json({ error: 'Token inválido ou expirado.' });
