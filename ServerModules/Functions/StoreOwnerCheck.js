@@ -21,7 +21,7 @@ async function OwnerCheck(req, res, next) {
     try {
     
         
-        if ( store.StoreIdOwner == Header_userId) {
+        if ( store) {
             
             next();
         } else {
