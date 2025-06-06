@@ -31,24 +31,19 @@ const ProductRegister = async (req, res) => {
         const { StoreID, ProductName, ProductPrice } = req.body;
         const Avaible = 1;
         
-        let ImageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
-        const viewid = await getViewIdFromImageIdGoogleDrive(fileId);
-        
-        if (viewid) {
-            ImageUrl = `https://lh3.googleusercontent.com/drive-viewer/${viewid}`;
-        }
+        const ImageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
 
         if (!StoreID || !ProductName || !ProductPrice) {
             throw new Error('Dados insuficientes para o registro do produto');
-        } else {
-            await Db.Products.create({
-                Name: ProductName,
-                StoreID: StoreID,
-                Price: ProductPrice,
-                ImageUrl: ImageUrl,
-                Available: Avaible,
-            });
         }
+
+        await Db.Products.create({
+            Name: ProductName,
+            StoreID: StoreID,
+            Price: ProductPrice,
+            ImageUrl: ImageUrl,
+            Available: Avaible,
+        });
         
         fs.unlinkSync(req.file.path);
 
