@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
@@ -23,10 +31,7 @@ const LoginScreen = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          Email: email,
-          Password: password,
-        }),
+        body: JSON.stringify({ Email: email, Password: password }),
       });
 
       const data = await response.json();
@@ -37,8 +42,6 @@ const LoginScreen = () => {
         await AsyncStorage.setItem('haveStore', JSON.stringify(data.HaveStore));
 
         Alert.alert('Sucesso', 'Login realizado com sucesso');
-
-        // ✅ Aqui está a correção: navega para a rota correta
         navigation.replace('StoresList');
       } else {
         Alert.alert('Erro', data.message || 'Falha ao autenticar');
@@ -56,29 +59,40 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Login</Text>
+      <Text style={styles.logo}>Pegô!</Text>
+      <Text style={styles.subtitle}>Entre para fazer seu pedido 🍔</Text>
+
       <TextInput
         style={styles.input}
         placeholder="Email"
+        placeholderTextColor="#aaa"
         keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder="Senha"
+        placeholderTextColor="#aaa"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
-      <Button
-        title={isLoading ? 'Carregando...' : 'Login'}
+
+      <TouchableOpacity
+        style={styles.loginButton}
         onPress={handleLogin}
         disabled={isLoading}
-      />
+      >
+        {isLoading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.loginButtonText}>Entrar</Text>
+        )}
+      </TouchableOpacity>
 
       <TouchableOpacity onPress={goToRegister} style={styles.registerButton}>
-        <Text style={styles.registerText}>Não tem conta? Cadastre-se</Text>
+        <Text style={styles.registerText}>Não tem conta? <Text style={styles.link}>Cadastre-se</Text></Text>
       </TouchableOpacity>
     </View>
   );
@@ -87,30 +101,56 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 24,
     justifyContent: 'center',
-    padding: 16,
+    alignItems: 'stretch',
   },
-  header: {
-    fontSize: 24,
+  logo: {
+    fontSize: 40,
     fontWeight: 'bold',
+    color: '#ff4d4d',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 30,
   },
   input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-    borderRadius: 4,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    height: 50,
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 16,
+  },
+  loginButton: {
+    backgroundColor: '#ff4d4d',
+    borderRadius: 8,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   registerButton: {
-    marginTop: 20,
+    marginTop: 24,
     alignItems: 'center',
   },
   registerText: {
-    color: '#007BFF',
-    textDecorationLine: 'underline',
+    color: '#666',
+    fontSize: 14,
+  },
+  link: {
+    color: '#ff4d4d',
+    fontWeight: 'bold',
   },
 });
 

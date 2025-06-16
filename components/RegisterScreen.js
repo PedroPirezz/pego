@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, Alert } from 'react-native';
+import {
+  View,
+  TextInput,
+  Button,
+  Text,
+  StyleSheet,
+  Alert,
+  ScrollView,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const RegisterScreen = () => {
@@ -27,30 +38,23 @@ const RegisterScreen = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'User-Agent': 'ReactNativeApp'
+          'User-Agent': 'ReactNativeApp',
         },
-        body: formBody
+        body: formBody,
       });
 
       const contentType = response.headers.get('Content-Type');
-      let data;
-
-      if (contentType && contentType.includes('application/json')) {
-        data = await response.json();
-      } else {
-        data = await response.text();
-      }
-
-      console.log('Resposta:', data);
+      const data = contentType?.includes('application/json')
+        ? await response.json()
+        : await response.text();
 
       if (response.ok) {
         Alert.alert('Sucesso', 'Usuário cadastrado com sucesso!');
-        navigation.navigate('LoginScreen'); // Ajuste conforme o nome da sua tela de login
+        navigation.navigate('LoginScreen');
       } else {
-        Alert.alert('Erro', typeof data === 'string' ? data : (data.message || 'Falha ao cadastrar usuário'));
+        Alert.alert('Erro', typeof data === 'string' ? data : data.message || 'Erro ao cadastrar');
       }
     } catch (error) {
-      console.error('Erro na requisição:', error);
       Alert.alert('Erro', 'Ocorreu um erro. Tente novamente mais tarde.');
     } finally {
       setIsLoading(false);
@@ -58,68 +62,103 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Cadastro</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Nome"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="CPF/CNPJ"
-        value={cpfCnpj}
-        onChangeText={setCpfCnpj}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Telefone"
-        value={numberPhone}
-        onChangeText={setNumberPhone}
-      />
-      <Button
-        title={isLoading ? 'Cadastrando...' : 'Cadastrar'}
-        onPress={handleRegister}
-        disabled={isLoading}
-      />
-    </View>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.header}>Criar Conta</Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Nome completo"
+          value={name}
+          onChangeText={setName}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="CPF ou CNPJ"
+          keyboardType="numeric"
+          value={cpfCnpj}
+          onChangeText={setCpfCnpj}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Telefone"
+          keyboardType="phone-pad"
+          value={numberPhone}
+          onChangeText={setNumberPhone}
+        />
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleRegister}
+          disabled={isLoading}
+        >
+          <Text style={styles.buttonText}>
+            {isLoading ? 'Cadastrando...' : 'Cadastrar'}
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16
+    backgroundColor: '#fff',
+    padding: 24,
+    paddingTop: 80,
+    flexGrow: 1,
   },
   header: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
+    color: '#ff4d4d',
     textAlign: 'center',
-    marginBottom: 20
+    marginBottom: 30,
   },
   input: {
-    height: 40,
-    borderColor: '#ccc',
+    height: 50,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 12,
+    paddingHorizontal: 15,
+    marginBottom: 15,
     borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-    borderRadius: 4
-  }
+    borderColor: '#ddd',
+  },
+  button: {
+    backgroundColor: '#ff4d4d',
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 10,
+    shadowColor: '#ff4d4d',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });
 
 export default RegisterScreen;

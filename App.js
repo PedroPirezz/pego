@@ -8,6 +8,9 @@ import HomeScreen from './components/HomeScreen';
 import StoresListScreen from './components/ListingStores';
 import StoreDetailScreen from './components/StoreDetailScreen';
 import StoreRegister from './components/StoreRegister';
+import ProductRegister from './components/ProductRegister';
+import OrderDetails from './components/OrderDetails';
+import OrdersListing from './components/OrdersListing.js';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +24,9 @@ export default function App() {
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="StoreRegister" component={StoreRegister} />
+        <Stack.Screen name="ProductRegister" component={ProductRegister} />
+        <Stack.Screen name="OrderDetails" component={OrderDetails} />
+        <Stack.Screen name="OrdersListing" component={OrdersListing} />
       </Stack.Navigator>
     </NavigationContainer>
   );
