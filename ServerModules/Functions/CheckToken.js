@@ -20,7 +20,7 @@ async function CheckToken(req, res, next) {
             where: { id: userId }
         });
 
-        console.log(user.Token + "--------------------------------------------------" +  token);
+  
 
         if (user && user.Token === token) {
 

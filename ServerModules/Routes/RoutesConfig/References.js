@@ -7,10 +7,10 @@ const ProductRegister = require('../RoutesListing/ProductRoutes/ProductRegister'
 const StoreProducts = require('../RoutesListing/ProductRoutes/AllStoreProducts')
 const StoreProductInfo = require('../RoutesListing/ProductRoutes/ProductInfo')
 const NewOrder = require('../RoutesListing/OrderRoutes/NewOrder')
-
 const AlterProductDisponibility = require('../RoutesListing/ProductRoutes/AlterProductDisponibility')
 const OrderInfo = require('../RoutesListing/OrderRoutes/OrderInfo')
 const RedeemOrder = require('../RoutesListing/OrderRoutes/RedeemOrder')
+const OrdersListing = require('../RoutesListing/OrderRoutes/OrdersListing')
 
 
 const NodeRoutes = {
@@ -26,7 +26,8 @@ const NodeRoutes = {
     NewOrder,
     AlterProductDisponibility,
     OrderInfo,
-    RedeemOrder
+    RedeemOrder,
+    OrdersListing
 };
 
 module.exports = NodeRoutes;

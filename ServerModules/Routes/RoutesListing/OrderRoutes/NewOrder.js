@@ -12,6 +12,10 @@ async function createNewOrder(userId, storeId, items, paymentMethod) {
     const totalPrice = items.reduce((total, item) => total + item.unitPrice * item.quantity, 0);
     const customer = await DB.Users.findOne({ where: { id: userId } });
 
+    if (!customer) {
+      throw new Error('Usuário não encontrado');
+    }
+
    
 
     const qrCodeResponse = await axios.post(
@@ -29,17 +33,17 @@ async function createNewOrder(userId, storeId, items, paymentMethod) {
       },
       {
         headers: {
-          Authorization: 'Bearer abc_dev_mCLkCwrcp2HnjXrdyMHFe0f4',
+          Authorization: 'Bearer abc_dev_gTZXWnUYyb1USHrC3fMmQWuu',
           'Content-Type': 'application/json'
         }
       }
     );
 
-    console.log(qrCodeResponse.data.data.pixKey);
-    console.log(qrCodeResponse.data.pixQrCode);
+  console.log(qrCodeResponse.data + "--------------------------------------------------");
+
     const newOrder = await DB.Order.create({
       UserId: userId,
-      StoreID: storeId,
+      StoreID: storeId, 
       TotalPrice: totalPrice,
       PaymentMethod: paymentMethod,
       Status: qrCodeResponse.data.data.status,

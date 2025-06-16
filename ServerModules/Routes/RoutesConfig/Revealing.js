@@ -8,6 +8,7 @@ const OwnerCheck = require('../../Functions/StoreOwnerCheck');
 const CheckOrderOwner = require('../../Functions/CheckOrderOwner');
 const CheckPayment = require('../../Functions/CheckPayment');
 
+
 const upload = multer({ dest: os.tmpdir() }); 
 
 // Definição das rotas
@@ -23,5 +24,6 @@ router.get('/Store/:StoreID/Product/:ProductID', Pego_Routes.StoreProductInfo);
 router.post('/AlterProductDisponibility', CheckToken, OwnerCheck, Pego_Routes.AlterProductDisponibility); 
 router.get('/OrderInfo', CheckToken, CheckOrderOwner, Pego_Routes.OrderInfo); 
 router.post('/RedeemOrder', CheckToken, CheckPayment, OwnerCheck, Pego_Routes.RedeemOrder);
+router.get('/OrdersListing', CheckToken, Pego_Routes.OrdersListing);
 
 module.exports = router;
