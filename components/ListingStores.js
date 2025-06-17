@@ -75,6 +75,16 @@ const StoresListScreen = () => {
           </Text>
         </TouchableOpacity>
 
+        <TouchableOpacity
+          style={styles.headerButton}
+          onPress={() => {
+            navigation.navigate('OrdersListing');
+          }}
+        >
+          <Text style={styles.headerButtonText}>Ver Pedidos</Text>
+        </TouchableOpacity>
+        
+
         <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
           <Text style={styles.logoutButtonText}>Sair</Text>
         </TouchableOpacity>

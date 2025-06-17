@@ -7,6 +7,7 @@ import {
   Image,
   ActivityIndicator,
   Alert,
+
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -41,11 +42,10 @@ const OrderDetailsScreen = ({ route }) => {
         const data = await response.json();
         setOrderData(data);
 
-        // Converter o Buffer binário do QRCode em Base64 para exibir a imagem
-        if (data.OrderInfo.PixQrCode?.data) {
-          const base64 = Buffer.from(data.OrderInfo.PixQrCode.data).toString('base64');
-          setQrCodeUri(`data:image/png;base64,${base64}`);
-        }
+if (data.OrderInfo.PixQrCode) {
+  setQrCodeUri(data.OrderInfo.PixQrCode); // já com 'data:image/png;base64,...'
+}
+
 
       } catch (error) {
         Alert.alert('Erro', error.message);
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 12,
   },
-  qrImage: { width: 220, height: 220, marginBottom: 12 },
+  qrImage: { width: 220, height: 220, marginBottom: 12, borderRadius: 12 },
   pixKeyLabel: { fontWeight: 'bold', color: '#333', marginTop: 10 },
   pixKey: { color: '#555', textAlign: 'center', fontSize: 12, marginTop: 4 },
 });

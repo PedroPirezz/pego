@@ -77,7 +77,7 @@ const RegisterProductScreen = () => {
   };
 
   const handleSubmit = async () => {
-    if (!storeId || !productName || !productPrice || !imageUri) {
+    if ( !productName || !productPrice || !imageUri) {
       Alert.alert('Erro', 'Preencha todos os campos e selecione uma imagem.');
       return;
     }
