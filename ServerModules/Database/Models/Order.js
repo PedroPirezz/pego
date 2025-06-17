@@ -31,7 +31,7 @@ const Orders = connection.define('orders', {
         allownull: false
     },
     PixQrCode: {
-        type: Sequelize.DataTypes.BLOB('long'),
+        type: Sequelize.TEXT,
         allownull: false
     },
 })
